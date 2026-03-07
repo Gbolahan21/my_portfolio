@@ -153,8 +153,8 @@ section .title::after{
 /* home section styling */
 .home{
     display: flex;
-    background: #111;
-    background: url("./assets/sodiq.jpeg") no-repeat center;
+    /* background: url("./assets/sodiq.jpeg") no-repeat center; */
+    background: #ffffff;
     height: 100vh;
     min-height: 500px;
     background-size: cover;

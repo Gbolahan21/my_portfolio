@@ -4,6 +4,7 @@ import { useForm, ValidationError } from "@formspree/react";
 import "./App.css";
 
 import frontendEngineer from './assets/sodiq.jpeg'
+import moh from './assets/moh.png'
 
 function App() {
 
@@ -87,7 +88,7 @@ function App() {
       </div>
       <nav className="navbar">
         <div className="max-width">
-          <div className="logo"><a href="#home">MOH</a></div>
+          <div className="logo"><a href="#home"><img src={moh} alt="Logo" style={{width: "100px", height: "auto"}} /></a></div>
           <ul className="menu">
               <li><a href="#home" className="menu-btn">Home</a></li>
               <li><a href="#about" className="menu-btn">About</a></li>
@@ -105,9 +106,9 @@ function App() {
         <div className="max-width">
           <div className="home-content">
             <div className="column left">
-                <div className="text-1">Hi, my name is</div>
-                <div className="text-2">Sodiq Mohammed</div>
-                <div className="text-3">And I'm a <span className="typing"></span></div>
+              <div className="text-1">Hi, my name is</div>
+              <div className="text-2">Sodiq Mohammed,</div>
+              <div className="text-3">And I'm a <span className="typing"></span></div>
             </div>
           </div>
         </div>
@@ -251,7 +252,7 @@ function App() {
 
       {/* footer section start */}
       <footer>
-        <span>Created By Moh | <span className="far fa-copyright"></span> {new Date().getFullYear()} All rights reserved.</span>
+        <span>Created By <img src={moh} alt="Logo" style={{ width: "100px", height: "auto", verticalAlign: "middle", margin: "0 5px" }} /> | <span className="far fa-copyright"></span> {new Date().getFullYear()} All rights reserved.</span>
       </footer>
     </>
   )
