@@ -88,7 +88,7 @@ function App() {
       </div>
       <nav className="navbar">
         <div className="max-width">
-          <div className="logo"><a href="#home"><img src={moh} alt="Logo" style={{width: "100px", height: "auto"}} /></a></div>
+          <div className="logo"><a href="#home"><img src={moh} alt="Logo" style={{width: "50px", height: "auto"}} /></a></div>
           <ul className="menu">
               <li><a href="#home" className="menu-btn">Home</a></li>
               <li><a href="#about" className="menu-btn">About</a></li>
@@ -252,7 +252,7 @@ function App() {
 
       {/* footer section start */}
       <footer>
-        <span>Created By <img src={moh} alt="Logo" style={{ width: "100px", height: "auto", verticalAlign: "middle", margin: "0 5px" }} /> | <span className="far fa-copyright"></span> {new Date().getFullYear()} All rights reserved.</span>
+        <span>Created By <img src={moh} alt="Logo" style={{ width: "50px", verticalAlign: "middle", margin: "0 5px" }} /> | <span className="far fa-copyright"></span> {new Date().getFullYear()} All rights reserved.</span>
       </footer>
     </>
   )
