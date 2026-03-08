@@ -28,7 +28,7 @@ html{
 
 /* all similar content styling codes */
 section{
-  padding: 100px 0;
+  padding: 50px 0;
 }
 .max-width{
   max-width: 1300px;
@@ -152,14 +152,13 @@ section .title::after{
 
 /* home section styling */
 .home{
-    display: flex;
-    background: url("./assets/flow.jpeg") no-repeat center;
-    /* background: #ffffff; */
-    height: 100vh;
-    min-height: 500px;
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Ubuntu', sans-serif;
+  display: flex;
+  background: url("./assets/flow.jpeg") no-repeat center;
+  height: 100vh;
+  min-height: 500px;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Ubuntu', sans-serif;
 }
 .home .max-width{
   width: 100%;
