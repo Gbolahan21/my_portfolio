@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback, useMemo, useState, useRef } from "react";
 import Typed from "typed.js";
 import { useForm, ValidationError } from "@formspree/react";
 import "./App.css";
@@ -9,36 +9,29 @@ import moh from './assets/moh.png'
 function App() {
 
   const [state, handleSubmit] = useForm("xdawknka");
+  const [isSticky, setIsSticky] = useState(false);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const typingRef1 = useRef(null);
+  const typingRef2 = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const navbar = document.querySelector(".navbar");
-      const scrollBtn = document.querySelector(".scroll-up-btn");
-
-      if (window.scrollY > 20) {
-        navbar?.classList.add("sticky");
-      } else {
-        navbar?.classList.remove("sticky");
-      }
-
-      if (window.scrollY > 500) {
-        scrollBtn?.classList.add("show");
-      } else {
-        scrollBtn?.classList.remove("show");
-      }
+      setIsSticky(window.scrollY > 20);
+      setShowScrollBtn(window.scrollY > 500);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    // typing animation
-    const typed1 = new Typed(".typing", {
+    const typed1 = new Typed(typingRef1.current, {
       strings: ["Developer", "Pentester"],
       typeSpeed: 100,
       backSpeed: 60,
       loop: true
     });
 
-    const typed2 = new Typed(".typing-2", {
+    const typed2 = new Typed(typingRef2.current, {
       strings: ["Developer", "Pentester"],
       typeSpeed: 100,
       backSpeed: 60,
@@ -52,44 +45,50 @@ function App() {
     };
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
-  };
+  }, []);
 
-  const toggleMenu = () => {
-    document.querySelector(".navbar .menu")?.classList.toggle("active");
-    document.querySelector(".menu-btn i")?.classList.toggle("active");
-  };
+  const toggleMenu = useCallback(() => {
+    setMenuOpen(prev => !prev);
+  }, []);
 
-  const skills = [
-    { name: "HTML", level: 100 },
-    { name: "CSS", level: 100 },
-    { name: "Bootstrap", level: 100 },
-    { name: "React", level: 80 },
-    { name: "MySQL", level: 70 },
-    { name: "Tailwind", level: 50 },
-    { name: "Node", level: 60 },
-    { name: "Python", level: 70 },
-  ];
+  const skills = useMemo(
+    () => [
+      { name: "HTML", level: 100 },
+      { name: "CSS", level: 100 },
+      { name: "Bootstrap", level: 100 },
+      { name: "React", level: 80 },
+      { name: "MySQL", level: 70 },
+      { name: "Tailwind", level: 50 },
+      { name: "Node", level: 60 },
+      { name: "Python", level: 70 },
+    ],
+    []
+  );
 
-  if (state.succeeded) {
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
-  }
+  useEffect(() => {
+    if (state.succeeded) {
+      const timer = setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [state.succeeded]);
 
   return (
     <>
-      <div className="scroll-up-btn" onClick={scrollToTop}>
+      <div className={`scroll-up-btn ${showScrollBtn ? "show" : ""}`} onClick={scrollToTop}>
         <i className="fas fa-angle-up"></i>
       </div>
-      <nav className="navbar">
+      <nav className={`navbar ${isSticky ? "sticky" : ""}`}>
         <div className="max-width">
           <div className="logo"><a href="#home"><img src={moh} alt="Logo" style={{width: "50px", height: "auto"}} /></a></div>
-          <ul className="menu">
+          <ul className={`menu ${menuOpen ? "active" : ""}`}>
               <li><a href="#home" className="menu-btn">Home</a></li>
               <li><a href="#about" className="menu-btn">About</a></li>
               <li><a href="#services" className="menu-btn">Services</a></li>
@@ -97,7 +96,7 @@ function App() {
               <li><a href="#contact" className="menu-btn">Contact</a></li>
           </ul>
           <div className="menu-btn" onClick={toggleMenu}>
-            <i className="fas fa-bars"></i>
+            <i className={`fas fa-bars ${menuOpen ? "active" : ""}`}></i>
           </div>
         </div>
       </nav>
@@ -108,7 +107,7 @@ function App() {
             <div className="column left">
               <div className="text-1">Hi, my name is</div>
               <div className="text-2">Sodiq Mohammed,</div>
-              <div className="text-3">And I'm a <span className="typing"></span></div>
+              <div className="text-3">And I'm a <span ref={typingRef1}></span></div>
             </div>
           </div>
         </div>
@@ -123,7 +122,7 @@ function App() {
                 <img src={frontendEngineer} alt="Sodiq Mohammed Portrait" />
             </div>
             <div className="column right">
-                <div className="text">I'm Sodiq and I'm a <span className="typing-2"></span></div>
+                <div className="text">I'm Sodiq and I'm a <span ref={typingRef2}></span></div>
                 <p>I am a FullStack Developer, and Cybersecurity Engineer (Pentester)</p>
             </div>
           </div>
